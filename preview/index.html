@@ -1,0 +1,457 @@
+<title>Khwab App Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Amiri:wght@400;700&family=Carlito:wght@400;700&display=swap">
+<style>
+/* Layout: one phone frame, right-to-left, night-blue header with gold accents on a cool paper body. */
+:root {
+  --page: #dfe4ee; --paper: #f4f6fb; --card: #ffffff; --line: #d8deea;
+  --ink: #18213a; --muted: #5d6784; --night: #16234a; --night-2: #22356b;
+  --gold: #a27a12; --gold-soft: #f3e7c4; --on-night: #f1e6c6;
+  --warn-bg: #fbe9d6; --warn-fg: #8a4513; --ok: #1f7a4d;
+  /* English letters use Calibri (or its free twin Carlito); Urdu letters fall through to Nastaleeq. */
+  --ur: "Calibri", "Carlito", "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
+  --ar: "Amiri", "Noto Naskh Arabic", serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --page: #070b16; --paper: #0e1428; --card: #161e38; --line: #26305a;
+  --ink: #e7eaf5; --muted: #9aa3c4; --night: #0a1230; --night-2: #1a2a5c;
+  --gold: #e3c063; --gold-soft: #3a3016; --on-night: #f1e6c6;
+  --warn-bg: #3d2614; --warn-fg: #f3c191; --ok: #6fd3a0; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --page: #070b16; --paper: #0e1428; --card: #161e38; --line: #26305a;
+  --ink: #e7eaf5; --muted: #9aa3c4; --night: #0a1230; --night-2: #1a2a5c;
+  --gold: #e3c063; --gold-soft: #3a3016; --on-night: #f1e6c6;
+  --warn-bg: #3d2614; --warn-fg: #f3c191; --ok: #6fd3a0; color-scheme: dark }
+
+html, body { height: 100%; }
+body { background: var(--page); color: var(--ink); font-family: var(--ur); margin: 0; box-sizing: border-box;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px; }
+.note { font-size: 13px; line-height: 2.2; color: var(--muted); text-align: center; margin: 0 auto 10px; max-width: 400px; }
+.phone { direction: rtl; max-width: 400px; height: min(840px, calc(100% - 40px)); min-height: 580px; margin: 0 auto; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgb(10 20 50 / .18); }
+@media (max-width: 440px) { body { padding-block: 6px; } .phone { border-radius: 16px; height: calc(100% - 44px); } }
+
+.top { background: linear-gradient(160deg, var(--night), var(--night-2)); color: var(--on-night); padding: 12px 14px 14px; display: flex; align-items: center; gap: 8px; position: relative; }
+.top h1 { margin: 0; font-size: 20px; font-weight: 700; flex: 1; line-height: 2.1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top .moon { width: 34px; height: 34px; flex: none; }
+.ib { border: 0; background: transparent; color: inherit; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; flex: none; }
+.ib:hover { background: rgb(255 255 255 / .12); }
+.ib svg { width: 22px; height: 22px; }
+.screen { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 14px; }
+
+.search { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 12px; }
+.search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 15px; padding: 8px 0; line-height: 2.2; }
+.search:focus-within { border-color: var(--gold); }
+.search svg { width: 18px; height: 18px; color: var(--muted); flex: none; }
+
+.cta { border: 0; border-radius: 18px; padding: 12px 16px; background: var(--gold-soft); color: var(--ink); font: inherit; text-align: right; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+.cta b { font-size: 17px; display: block; line-height: 2; }
+.cta span { font-size: 13px; color: var(--muted); line-height: 2; }
+.cta .wa { width: 40px; height: 40px; border-radius: 50%; background: #1fa855; color: #fff; display: grid; place-items: center; flex: none; }
+
+.h { font-size: 14px; color: var(--muted); margin: 0; line-height: 2; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cat { border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 8px 6px 4px; font: inherit; color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0; text-align: center; }
+.cat:hover { border-color: var(--gold); }
+.cat i { font-style: normal; font-size: 22px; line-height: 1.4; }
+.cat span { font-size: 12.5px; line-height: 2; }
+
+.hadith { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; position: relative; overflow: hidden; }
+.hadith::before { content: ""; position: absolute; inset: 0 0 auto auto; width: 70px; height: 70px; background: radial-gradient(circle at 70% 30%, var(--gold-soft) 0 40%, transparent 41%); opacity: .8; }
+.hadith p { margin: 0; line-height: 2.3; font-size: 15px; position: relative; }
+.ref { font-size: 12px; color: var(--gold); direction: ltr; display: inline-block; line-height: 2; }
+details.topic { background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+details.topic[open] { border-color: var(--gold); }
+details.topic summary { cursor: pointer; list-style: none; padding: 4px 14px; font-size: 16px; font-weight: 600; line-height: 2.4; display: flex; align-items: center; gap: 10px; }
+details.topic summary::-webkit-details-marker { display: none; }
+details.topic summary .n { width: 28px; height: 28px; border-radius: 50%; background: var(--night); color: var(--on-night); display: grid; place-items: center; font-size: 13px; flex: none; line-height: 1; }
+details.topic summary::after { content: "⌄"; margin-right: auto; color: var(--muted); }
+details.topic[open] summary::after { content: "⌃"; }
+.topic-body { padding: 0 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+.topic-body p { margin: 0; line-height: 2.4; font-size: 15px; }
+.topic-body .ayah { font-family: var(--ar); font-size: 21px; line-height: 2; color: var(--gold); text-align: center; }
+.topic-body .refs { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.weak { color: var(--warn-fg); font-size: 12px; }
+
+.row { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 6px 12px; cursor: pointer; }
+.row:hover { border-color: var(--gold); }
+.row .w { flex: 1; min-width: 0; }
+.row b { font-size: 17px; line-height: 2.2; }
+.row small { display: block; color: var(--muted); font-size: 12px; line-height: 2; direction: ltr; text-align: right; }
+.row .arw { font-family: var(--ar); font-size: 20px; color: var(--gold); }
+.letters { display: flex; flex-wrap: wrap; gap: 6px; }
+.letters button { width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; line-height: 1; }
+.letters button[aria-pressed="true"] { background: var(--night); color: var(--on-night); border-color: var(--night); }
+
+.sym { text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 10px; }
+.sym .big { font-size: 34px; font-weight: 700; line-height: 2; }
+.sym .arabic { font-family: var(--ar); font-size: 24px; color: var(--gold); }
+.sym small { display: block; color: var(--muted); font-size: 12px; line-height: 2; }
+.book { background: var(--card); border: 1px solid var(--line); border-right: 4px solid var(--gold); border-radius: 14px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; }
+.book h3 { margin: 0; font-size: 15px; color: var(--gold); line-height: 2; }
+.book p { margin: 0; line-height: 2.3; font-size: 15px; }
+details.orig summary { cursor: pointer; font-size: 13px; color: var(--muted); line-height: 2; }
+details.orig p { font-family: var(--ar); font-size: 17px; line-height: 2; color: var(--muted); }
+.sample { display: inline-block; background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 0 8px; font-size: 12px; line-height: 2; align-self: flex-start; }
+.alert { background: var(--warn-bg); color: var(--warn-fg); border-radius: 14px; padding: 10px 14px; line-height: 2.2; font-size: 14px; }
+
+form { display: flex; flex-direction: column; gap: 10px; }
+label.f { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.f input, .f textarea { font: inherit; font-size: 15px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 4px 12px; line-height: 2.2; }
+.f textarea { min-height: 120px; resize: vertical; }
+.f input:focus, .f textarea:focus { border-color: var(--gold); outline: none; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 0 12px; line-height: 2.3; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--night); color: var(--on-night); border-color: var(--night); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; line-height: 2.1; }
+.check input { margin-top: 10px; accent-color: var(--gold); }
+.send { border: 0; border-radius: 14px; background: #1fa855; color: #fff; font: inherit; font-size: 16px; padding: 4px; line-height: 2.4; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.send:disabled { opacity: .45; cursor: not-allowed; }
+.btn2 { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--ink); font: inherit; font-size: 15px; padding: 4px; line-height: 2.3; cursor: pointer; }
+.msg { white-space: pre-wrap; background: #dcf8c6; color: #111; border-radius: 12px 0 12px 12px; padding: 8px 12px; line-height: 2.1; font-size: 14px; }
+.steps { margin: 0; padding-right: 20px; display: flex; flex-direction: column; gap: 4px; line-height: 2.2; }
+.prose p { margin: 0; line-height: 2.3; }
+
+.nav { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--card); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.nav button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 11.5px; padding: 6px 0 2px; display: flex; flex-direction: column; align-items: center; gap: 0; cursor: pointer; line-height: 2; }
+.nav button svg { width: 22px; height: 22px; }
+.nav button[aria-current="page"] { color: var(--gold); font-weight: 700; }
+.nav .mid svg { width: 28px; height: 28px; color: #1fa855; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(36px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--paper); font-family: var(--ur); padding: 2px 16px; border-radius: 999px; font-size: 14px; line-height: 2.2; direction: rtl; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* Urdu paragraphs: tall Nastaleeq lines, justified, clear gaps between paragraphs. */
+.book p, .topic-body p, .prose p, .hadith p, .problem p { font-size: 16px; line-height: 2.6; text-align: justify; text-align-last: right; word-spacing: .06em; margin: 0; }
+.book p + p, .topic-body p + p, .prose p + p { margin-top: .5em; }
+.book { gap: 6px; padding: 12px 16px; }
+.orig { border-top: 1px dashed var(--line); padding-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+.orig .h { font-size: 13px; }
+.book .orig p { font-family: var(--ar); font-size: 18px; line-height: 2.1; color: var(--ink); }
+.row .arname { font-family: var(--ar); font-size: 20px; line-height: 2; }
+.count { font-size: 13px; color: var(--muted); margin: 0; }
+.ref, .row small, .sym small { font-family: "Calibri", "Carlito", system-ui, sans-serif; font-size: 12.5px; }
+
+/* Final look */
+:root { --shadow: 0 1px 2px rgb(16 28 64 / .06), 0 6px 18px rgb(16 28 64 / .07); }
+.top { padding: 14px 14px 18px;
+  background-image: radial-gradient(1.2px 1.2px at 20% 30%, rgb(255 255 255 / .55) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 20%, rgb(255 255 255 / .45) 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 45% 75%, rgb(255 255 255 / .4) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 65%, rgb(255 255 255 / .5) 50%, transparent 51%),
+    linear-gradient(160deg, var(--night), var(--night-2)); }
+.top .tt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.top .tt h1 { flex: none; }
+.top .sub { font-size: 12.5px; opacity: .8; line-height: 1.9; margin-top: -4px; }
+.search { box-shadow: var(--shadow); border-radius: 16px; }
+.row, .cat, .book, .hadith, .sym, details.topic, .cta { box-shadow: var(--shadow); border-color: transparent; }
+.row:hover, .cat:hover { border-color: var(--gold); }
+.cat { border-radius: 16px; padding: 10px 6px 6px; }
+.quick { display: flex; flex-wrap: wrap; gap: 8px; }
+.qchip { font: inherit; font-size: 14px; line-height: 2.2; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.qchip:hover { border-color: var(--gold); color: var(--gold); }
+.cta { background: linear-gradient(135deg, var(--gold-soft), var(--card)); }
+a.send { text-decoration: none; }
+.nav { box-shadow: 0 -4px 16px rgb(16 28 64 / .06); border-top-color: transparent; }
+.nav button[aria-current="page"] svg { background: var(--gold-soft); border-radius: 999px; padding: 2px 12px; box-sizing: content-box; }
+.about { background: var(--card); border-radius: 18px; padding: 14px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; border-top: 4px solid var(--gold); }
+.about p { margin: 0; line-height: 2.4; font-size: 15px; }
+.about-head { display: flex; align-items: center; gap: 12px; }
+.about-head .mono { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(160deg, var(--night), var(--night-2)); color: var(--on-night); display: grid; place-items: center; font-size: 26px; line-height: 1; flex: none; }
+.about-head b { display: block; font-size: 19px; line-height: 2; }
+.about-head span { font-size: 13px; color: var(--muted); line-height: 1.8; }
+.about-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.linkbtn { display: grid; place-items: center; text-decoration: none; color: var(--ink); font-family: "Calibri", "Carlito", sans-serif; }
+@media (max-width: 360px) { .about-links { grid-template-columns: 1fr; } }
+</style>
+
+<p class="note">قابلِ کلک نمونہ۔ نابلسی کی مکمل کتاب (۲۳۹۱ علامات) مکمل عربی متن کے ساتھ؛ ۹۲ کا اردو ترجمہ ہو چکا، باقی جاری ہے۔</p>
+<div class="phone">
+  <div class="top" id="top"></div>
+  <div class="screen" id="screen"></div>
+  <nav class="nav" id="nav"></nav>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="data-nabulsi.js"></script>
+<script src="data-all.js"></script>
+<script>
+const I = {
+  moon: '<svg class="moon" viewBox="0 0 40 40"><path fill="currentColor" d="M24 6a14 14 0 1 0 10 24A12 12 0 1 1 24 6z"/><path fill="currentColor" d="M30 9l1.2 3.2 3.4.1-2.7 2.1 1 3.3-2.9-1.9-2.9 1.9 1-3.3-2.7-2.1 3.4-.1z"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  grid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  wa: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z"/></svg>',
+  heartF: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6c-2-1.5-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6 0-8 1.5z"/><path d="M12 6v14"/></svg>',
+  more: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>',
+  share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+};
+const CATS = [
+  ["انبیاء و اولیاء", "☪"], ["فرشتے", "✧"], ["عبادات", "🕌"], ["انسان و رشتے", "👪"], ["جسم کے اعضاء", "✋"],
+  ["موت و قبر", "⚱"], ["شادی و ولادت", "💍"], ["جانور", "🐪"], ["پرندے", "🕊"], ["کیڑے مکوڑے", "🐍"],
+  ["پانی و بارش", "💧"], ["آگ و روشنی", "🔥"], ["آسمان و ستارے", "🌙"], ["زمین و درخت", "🌴"], ["پھل و اناج", "🍇"],
+  ["کھانا پینا", "🍯"], ["لباس و زیور", "👗"], ["گھر و مسجد", "🏠"], ["سفر و سواری", "🐎"], ["رنگ", "🎨"],
+  ["اعداد", "۷"], ["مال و تجارت", "💰"], ["جنگ و ہتھیار", "⚔"], ["بیماری و علاج", "💊"], ["جن، قیامت، جنت", "✦"],
+];
+// Symbols. Nabulsi texts are from the Dar al-Fikr edition (via usul.ai / Shamela), translated to Urdu; scholar review pending.
+const SYM = [
+  { id: "nabi", ur: "نبی کریم ﷺ کی زیارت", ar: "رؤية النبي ﷺ", ro: "nabi ki ziyarat · seeing the Prophet", cat: 0, letter: "ن",
+    books: [{ b: "صحیح بخاری (حدیث)", t: "جس نے مجھے خواب میں دیکھا اس نے واقعی مجھے ہی دیکھا، کیونکہ شیطان میری صورت اختیار نہیں کر سکتا۔", ref: "Sahih al-Bukhari 6994", real: true }] },
+  ...[...[
+    ["saanp", "سانپ", "حية", "saanp · snake", 9, "س", 94,
+      "خواب میں سانپ دشمن، یا حکومت، یا خزانہ، یا عورت، یا اولاد ہے۔ اژدہا اگر آدمی اس سے نہ ڈرے تو اس کی طاقت اور حکومت ہے۔ سانپ مالدار دشمن ہے، کیونکہ زہر کی تعبیر مال ہے۔ اگر دیکھے کہ اس نے سانپ کو اپنے گھر میں داخل کیا تو اس کا دشمن اس کے خلاف چال چلے گا۔",
+      "(حية) في المنام عدو أو دولة أو كنز أو امرأة أو ولد والثعبان إذا لم يخف منه الرجل قوته ودولته والحية عدو ذو مال لأن تأويل السم مال وإن رأى أنه أدخلها بيته فإن عدوه يمكر به."],
+    ["barish", "بارش", "مطر", "barish · rain", 10, "ب", 315,
+      "خواب میں بارش، اگر اس سے کوئی نقصان نہ ہو، خیر، رزق اور رحمت ہے۔ (یہ اندراج آگے صفحہ ۳۱۶ پر جاری ہے۔)",
+      "(مطر) هو في المنام إذا لم يحصل منه ضرر فإنه خير ورزق ورحمة …"],
+    ["shehad", "شہد", "عسل", "shehad · honey", 15, "ش", 245,
+      "خواب میں شہد حلال میراث کا مال، یا غنیمت یا شراکت کا مال ہے۔ دیندار کے لیے شہد دین کی مٹھاس، تلاوتِ قرآن اور نیک اعمال ہے، اور دنیادار کے لیے بغیر محنت کے غنیمت۔ اگر دیکھے کہ آسمان سے شہد برسا تو یہ دین کی بہتری اور عام برکت ہے۔ آگ پر صاف کیا ہوا شہد سختی کے بعد کشادگی، اور ایسا مال ہے جو زکوٰۃ سے پاک ہو چکا ہو۔ شہد بیماری سے شفا بھی ہے۔",
+      "(عسل) هو في المنام مال من ميراث حلال أو مال من غنيمة أو شركة والعسل لأهل الدين حلاوة الدين وتلاوة القرآن وأعمال البر ولأهل الدنيا إصابة غنيمة من غير تعب … فإن رأى أن السماء أمطرت عسلًا دل على صلاح الدين وعموم البركة … والعسل المصفى بالنار فرج بعد شدة … ومال قد تطهر بالزكاة … والعسل شفاء من المرض"],
+    ["chand", "چاند", "قمر", "chand · moon", 12, "چ", 276,
+      "خواب میں چاند عادل بادشاہ، یا بڑا عالم، یا خوبصورت لڑکا، یا ظالم بادشاہ، یا جھوٹا آدمی ہے۔ اگر چاند کو آسمان میں اپنی حالت پر دیکھے تو وہ بادشاہ کا وزیر ہے۔ جو اسے اپنی گود میں یا اپنے پاس دیکھے، مرد ہو یا عورت، وہ اس کی روشنی کے بقدر اچھے رشتے سے شادی کرے گا؛ اگر چاند دھندلا ہو تو غیر کفو سے شادی کرے گا۔",
+      "(قمر) هو في المنام ملك عادل أو عالم كبير أو غلام حسن أو ملك جبار جائر أو رجل كذاب وإذا رأى القمر على حاله في السماء فهو وزير الملك ومن رآه في حجره أو عنده تزوج زوجة بقدر ضوئه ونوره رجلًا كان أو امرأة فإن كان كدرًا فإنه يتزوج غير كفء"],
+    ["pani", "پانی", "ماء", "pani · water", 10, "پ", 316,
+      "خواب میں پانی پاکیزہ زندگی ہے۔ جو اسے اپنے گھر میں دیکھے تو یہ خوش بختی، جمع شدہ مال، غنیمت اور خیر میں اضافہ ہے۔ یہ شادی بھی ہے، اللہ تعالیٰ کے اس فرمان کی وجہ سے: «اور وہی ہے جس نے پانی سے انسان کو پیدا کیا، پھر اسے نسب اور سسرال والا بنایا» (الفرقان ۵۴)۔",
+      "(ماء) هو في المنام حياة طيبة فمن رآه في داره فهو سعادة ومال مجموع وغنيمة وزيادة خير وهو تزويج لقوله تعالى: ﴿وهو الذي خلق من الماء بشرًا فجعله نسبًا وصهرًا﴾"],
+    ["billi", "بلی", "قط", "billi · cat", 7, "ب", 282,
+      "خواب میں بلی (قِط) کتاب پر دلالت کرتی ہے، اللہ تعالیٰ کے فرمان «عَجِّل لَنا قِطَّنا» (ص ۱۶) کی وجہ سے۔ کبھی بلی بیوی بچوں سے بے رخی، جھگڑے، چوری، بے وفائی اور چھپ کر باتیں سننے پر دلالت کرتی ہے۔ یہ ایسے شخص پر بھی دلالت کرتی ہے جو میٹھی باتوں سے لوگوں کے دل میں جگہ بناتا ہے مگر موقع ملے تو بگاڑ پیدا کرتا ہے۔",
+      "(قط) هو في المنام يدل على الكتاب لقوله تعالى: ﴿عجل لنا قطنا قبل يوم الحساب﴾ . وربما دل القط على الجفاء للزوجة والأولاد والخصام والسرقة … وعدم الوفاء واستراق السمع … ويدل على الإنسان الملاطف بالكلام والمتحبب … إلى قلوب الناس وهو مع ذلك يرمق الأشياء فإذا وجد فرصة أفسد"],
+    ["masjid", "مسجد", "مسجد", "masjid · mosque", 17, "م", 318,
+      "خواب میں مسجد عالم آدمی ہے، اور اس کے دروازے علماء اور حفاظ ہیں۔",
+      "(مسجد) هو في المنام رجل عالم والأبواب فيه رجال علماء وحفاظ المسجد."],
+    ["mushaf", "قرآن مجید کا نسخہ", "مصحف", "quran ka nuskha · mushaf", 2, "ق", 313,
+      "خواب میں مصحف کی تعبیر بادشاہ سے، یا مسلمانوں کے ایسے قاضی سے کی جاتی ہے جس پر دین کے معاملات میں بھروسہ کیا جاتا ہو۔ جو دیکھے کہ مصحف گم ہو گیا، جل گیا یا دھل گیا، تو کوئی بادشاہ یا قاضی فوت ہو گا۔",
+      "(مصحف) هو في المنام يعبر بالملك أو القاضي من قضاة المسلمين الذين يعتمد عليهم في أمور الدين فمن رأى المصحف قد عدم أو احترق أو غسل فإن ملكًا أو قاضيًا يموت."],
+    ["khajoor", "کھجور کا درخت", "نخل", "khajoor ka darakht · date palm", 13, "ک", 356,
+      "خواب میں کھجور کا درخت عالم آدمی یا اولاد ہے، اور اسے کاٹنا اس کی موت ہے۔ اس کی تعبیر عرب کے معزز، بلند مرتبہ اور لوگوں کو نفع دینے والے آدمی سے بھی ہوتی ہے۔ جو بہت سے کھجور کے درختوں کا مالک ہو وہ اسی قدر لوگوں پر نگران بنے گا؛ تاجر ہو تو تجارت بڑھے گی۔ سوکھا کھجور کا درخت منافق آدمی ہے۔",
+      "(نخل) هو في المنام رجل عالم أو ولد وقطعه موته ويعبر النخل برجل من العرب حسيب رفيع نفاع للناس ومن ملك نخلًا كثيرًا فإنه يتولى على رجال بقدر ذلك وإن كان تاجرًا ازدادت تجارته … والنخلة اليابسة رجل منافق"],
+    ["nehar", "نہر، دریا", "نهر", "nehar · river", 10, "ن", 359,
+      "خواب میں نہر بڑا معزز آدمی ہے۔ جو اس میں داخل ہو وہ کسی بڑے آدمی سے میل جول رکھے گا۔ نہر سے پینا اچھا نہیں، اللہ تعالیٰ کے فرمان کی وجہ سے: «اللہ ایک نہر سے تمہاری آزمائش کرنے والا ہے» (البقرہ ۲۴۹)۔",
+      "(نهر) هو في المنام رجل جليل ومن دخل فيه خالط رجلًا من أكابر الناس ولا يحمد الشرب من النهر لقوله تعالى: ﴿إن الله مبتليكم بنهر﴾"],
+    ["chabi", "چابی", "مفتاح", "chabi · key", 17, "چ", 327,
+      "خواب میں چابی رزق، یا مدد، یا علم اور قرآن کا دروازہ کھلنا ہے۔ چابیاں کبھی اولاد، قاصد یا مال پر بھی دلالت کرتی ہیں۔ چابی دشمن پر فتح ہے، اللہ تعالیٰ کے فرمان «نَصْرٌ مِّنَ اللَّهِ وَفَتْحٌ قَرِيبٌ» (الصف ۱۳) کی وجہ سے۔",
+      "(مفتاح) هو في المنام رزق أو عون أو فتح باب علم وقرآن … وربما دلت المفاتيح على الأولاد أو الجواسيس أو الرسل … أو المال … والمفتاح نصرة على العدو لقوله تعالى: ﴿نصر من الله وفتح قريب﴾"],
+    ["noor", "نور، روشنی", "نور", "noor · light", 11, "ن", 348,
+      "خواب میں نور ہدایت ہے۔ اندھیرے کے بعد روشنی، فقر کے بعد غنا، ذلت کے بعد عزت، گمراہی کے بعد ہدایت اور گناہ کے بعد توبہ ہے؛ اور روشنی سے اندھیرے میں جانا اس کے برعکس ہے۔ نور نیک اعمال، علم، قرآن اور نیک والد پر بھی دلالت کرتا ہے۔ جو دیکھے کہ اس نے نور کی چادر یا قمیص پہنی ہے، وہ نفع بخش علم پائے گا یا اپنے رب کی اطاعت کی طرف متوجہ ہو گا۔",
+      "(نور) هو في المنام هداية … والنور بعد الظلمة غنى بعد فقر وعز بعد ذل وهداية بعد ضلالة وتوبة بعد عصيان … والنور يدل على الأعمال الصالحة وعلى العلم وعلى القرآن وعلى الوالد الصالح … فمن رأى أنه ارتدى برداء من نور أو لبس قميصًا من نور فإنه ينال علمًا ينتفع به أو يقبل على طاعة ربه."],
+    ["qabr", "قبر", "قبر", "qabr · grave", 5, "ق", 271,
+      "خواب میں قبر قید ہے، اور قید قبر ہے۔ جو دیکھے کہ وہ زندہ ہوتے ہوئے قبر میں رہتا ہے، وہ قید ہو گا۔ جو خواب میں قبر بنائے وہ گھر تعمیر کرے گا۔ اگر جنازہ دیکھے بغیر قبر میں داخل ہو تو بنا بنایا گھر خریدے گا۔",
+      "(قبر) هو في المنام سجن والسجن قبر فمن رأى أنه يسكن قبرًا وهو حي فإنه يسجن ومن بنى قبرًا في منامه عمر دارًا فإن دخل القبر من غير أن يرى جنازة فإنه يشتري دارًا مفروغًا منها"],
+    ["kabootar", "کبوتر", "حمام", "kabootar · pigeon, dove", 8, "ک", 93,
+      "خواب میں کبوتر امانت دار قاصد، سچا دوست اور مانوس محبوب ہے۔ کبھی یہ ایسی بیویوں پر دلالت کرتا ہے جو پاکدامن، رازدار اور گھر والوں کے لیے محنتی ہوں۔ پالتو کبوتری اچھی عورت ہے، اس کے انڈے بیٹیاں اور اس کے بچے بیٹے ہیں۔",
+      "(حمام) هو في المنام رسول أمين وصديق صدوق وحبيب أنيس وربما دل على الزوجات المصونات الحفظ للأسرار والكد على العيال … والحمامة الداجنة امرأة حسنة عربية وبيضها بنات أو جوار … وفراخها بنون."],
+    ["gadha", "گدھا", "حمار", "gadha · donkey", 7, "گ", 91,
+      "خواب میں گدھا لڑکا، اولاد یا بیوی ہے، اور کبھی سفر یا علم پر دلالت کرتا ہے، اللہ تعالیٰ کے فرمان «كَمَثَلِ الْحِمَارِ يَحْمِلُ أَسْفَارًا» (الجمعہ ۵) کی وجہ سے۔ اگر اپنے گدھے کو معمول سے مختلف حال میں پائے اور دیکھنے والا اللہ سے ڈرنے والوں میں سے ہو تو یہ اس کی عبادت میں سستی ہے۔",
+      "(حمار) هو في المنام غلام أو ولد أو زوجة وربما دل على السفر أو العلم لقوله تعالى: ﴿كمثل الحمار يحمل أسفارا﴾ . ومن وجد من حماره خلاف ما يعهده في اليقظة وكان الرائي من أهل الخشية دل على فترته عن عبادته."],
+  ], ...(window.NABULSI_MORE || [])].map(([id, ur, ar, ro, cat, letter, page, t, orig]) => ({ id, ur, ar, ro, cat, letter,
+    books: [{ b: "تعطیر الانام فی تعبیر المنام (عبدالغنی نابلسی)", t, orig, ref: `al-Nabulsi, Ta'tir al-Anam, Dar al-Fikr ed., p. ${page}` }] })),
+];
+// Attach the full, uncut Arabic entry to every translated symbol, then add every other entry of the book.
+const normAr = s => s.replace(/[ً-ْٰ]/g, "").replace(/[أإآ]/g, "ا").replace(/ك/g, "ک").replace(/[يى]/g, "ی").replace(/[هة]/g, "ہ");
+(() => {
+  const ALL = window.NABULSI_ALL || [], used = new Set();
+  SYM.forEach(s => s.books.forEach(b => {
+    const m = /p\. (\d+)/.exec(b.ref); if (!m) return;
+    const i = ALL.findIndex((e, j) => !used.has(j) && e[1] === +m[1] && (s.ar === e[0] || s.ar.startsWith(e[0]) || e[0].startsWith(s.ar.split(" ")[0])));
+    if (i >= 0) { used.add(i); b.orig = `(${ALL[i][0]}) ${ALL[i][2]}`; }
+  }));
+  ALL.forEach((e, i) => {
+    if (used.has(i)) return;
+    SYM.push({ id: "n" + i, ur: e[0], ar: e[0], ro: `p. ${e[1]}`, cat: null, letter: normAr(e[0])[0], full: true,
+      books: [{ b: "تعطیر الانام فی تعبیر المنام (عبدالغنی نابلسی)", t: "", orig: `(${e[0]}) ${e[2]}`, ref: `al-Nabulsi, Ta'tir al-Anam, Dar al-Fikr ed., p. ${e[1]}` }] });
+  });
+})();
+const TRANSLATED = SYM.filter(s => !s.full).length;
+
+// "خواب کا علم": everything about dreams from Quran and hadith.
+const TOPICS = [
+  { t: "خواب کی تین قسمیں", p: ["نبی کریم ﷺ نے فرمایا: خواب تین طرح کے ہوتے ہیں:", "۱۔ رؤیائے صالحہ: اللہ کی طرف سے خوشخبری", "۲۔ شیطان کی طرف سے: غمگین کرنے والا خواب", "۳۔ حدیثِ نفس: جو بات آدمی دن میں سوچتا رہا وہی خواب میں دیکھ لی"], r: ["Sahih Muslim 2263"] },
+  { t: "سچا خواب نبوت کا حصہ", p: ["نیک آدمی کا اچھا خواب نبوت کے چھیالیس حصوں میں سے ایک حصہ ہے۔", "آپ ﷺ نے فرمایا: نبوت میں سے اب صرف «مبشرات» باقی رہ گئی ہیں، یعنی اچھے خواب۔"], r: ["Sahih al-Bukhari 6983", "Sahih al-Bukhari 6990"] },
+  { t: "وحی کی ابتدا سچے خوابوں سے", p: ["نبی کریم ﷺ پر وحی کی ابتدا سچے خوابوں سے ہوئی۔ آپ جو خواب دیکھتے وہ صبح کی روشنی کی طرح سچا ہو کر سامنے آتا۔"], r: ["Sahih al-Bukhari 3"] },
+  { t: "قرآن میں انبیاء کے خواب", a: "إِذْ قَالَ يُوسُفُ لِأَبِيهِ يَا أَبَتِ إِنِّي رَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا وَالشَّمْسَ وَالْقَمَرَ رَأَيْتُهُمْ لِي سَاجِدِينَ",
+    p: ["حضرت یوسفؑ نے گیارہ ستارے، سورج اور چاند کو سجدہ کرتے دیکھا؛ برسوں بعد یہ خواب پورا ہوا۔", "حضرت ابراہیمؑ نے خواب میں بیٹے کو ذبح کرتے دیکھا، کیونکہ انبیاء کا خواب وحی ہوتا ہے۔", "بادشاہِ مصر کا سات موٹی اور سات دبلی گایوں والا خواب، جس کی تعبیر حضرت یوسفؑ نے دی۔", "نبی کریم ﷺ کا مسجدِ حرام میں داخل ہونے کا خواب، جو سچا ہوا۔"],
+    r: ["Quran 12:4", "Quran 12:100", "Quran 37:102", "Quran 12:43–49", "Quran 48:27"] },
+  { t: "اچھا خواب دیکھیں تو کیا کریں", p: ["۱۔ اللہ کا شکر ادا کریں (الحمدللہ کہیں)", "۲۔ صرف اسی کو بتائیں جس سے محبت ہو یا جو سمجھدار ہو", "۳۔ حسد کرنے والے یا ناسمجھ کو نہ بتائیں"], r: ["Sahih al-Bukhari 6985", "Sahih Muslim 2261"] },
+  { t: "برا یا ڈراؤنا خواب دیکھیں تو", p: ["۱۔ بائیں طرف تین بار ہلکا سا تھتکاریں", "۲۔ تین بار شیطان سے اللہ کی پناہ مانگیں: أعوذ بالله من الشيطان الرجيم", "۳۔ جس کروٹ لیٹے تھے اسے بدل لیں", "۴۔ چاہیں تو اٹھ کر نماز پڑھیں", "۵۔ کسی کو نہ بتائیں؛ وہ آپ کو نقصان نہیں دے گا"], r: ["Sahih Muslim 2261", "Sahih Muslim 2262", "Sahih Muslim 2263"] },
+  { t: "نبی کریم ﷺ کو خواب میں دیکھنا", p: ["آپ ﷺ نے فرمایا: جس نے مجھے خواب میں دیکھا اس نے مجھے ہی دیکھا، کیونکہ شیطان میری صورت نہیں بنا سکتا۔", "علماء کہتے ہیں: یہ اس وقت ہے جب آپ ﷺ کو اسی حلیے میں دیکھا جائے جو احادیث میں بیان ہوا ہے۔"], r: ["Sahih al-Bukhari 6994"] },
+  { t: "جھوٹا خواب بیان کرنا", p: ["جو شخص ایسا خواب بیان کرے جو اس نے نہیں دیکھا، قیامت کے دن اسے جَو کے دو دانوں میں گرہ لگانے کا حکم دیا جائے گا، اور وہ ہرگز نہ لگا سکے گا۔"], r: ["Sahih al-Bukhari 7042"] },
+  { t: "کس کے خواب زیادہ سچے ہوتے ہیں", p: ["جو بات میں سب سے سچا ہو، اس کا خواب بھی سب سے سچا ہوتا ہے۔", "قیامت کے قریب مومن کا خواب کم ہی جھوٹا ہو گا۔"], r: ["Sahih Muslim 2263", "Sahih al-Bukhari 7017"] },
+  { t: "تعبیر کس سے پوچھیں", p: ["خواب صرف عالم یا خیر خواہ کو بتائیں۔", "حضرت ابو بکرؓ نے نبی ﷺ کے سامنے ایک خواب کی تعبیر کی، تو آپ ﷺ نے فرمایا: کچھ درست کہا اور کچھ میں غلطی کی۔ اس سے معلوم ہوا کہ بڑے سے بڑے معبر کی تعبیر بھی ایک رائے ہے، غیب نہیں۔"], r: ["Jami at-Tirmidhi 2278", "Sunan Abi Dawud 5020", "Sahih al-Bukhari 7046"] },
+  { t: "سونے کے آداب", p: ["۱۔ وضو کر کے سوئیں", "۲۔ دائیں کروٹ لیٹیں اور سونے کی دعا پڑھیں", "۳۔ آیت الکرسی پڑھیں: رات بھر اللہ کی طرف سے حفاظت", "۴۔ تینوں قل پڑھ کر ہاتھوں پر پھونکیں اور جسم پر پھیریں"], r: ["Sahih al-Bukhari 247", "Sahih al-Bukhari 2311", "Sahih al-Bukhari 5017"] },
+  { t: "احتلام (خواب میں غسل کی حاجت)", p: ["اگر سو کر اٹھیں اور کپڑے پر تری دیکھیں تو غسل فرض ہے، چاہے خواب یاد ہو یا نہ ہو۔ یہی حکم عورت کے لیے بھی ہے۔"], r: ["Sahih al-Bukhari 282"] },
+  { t: "استخارہ اور خواب", p: ["استخارہ ایک دعا ہے جو دو رکعت نفل کے بعد پڑھی جاتی ہے۔", "علماء کے مطابق استخارہ کے بعد خواب آنا ضروری نہیں؛ دل کے رجحان، مشورے اور حالات سے فیصلہ کریں۔ کسی سے «استخارہ کروانے» کی فیس دینا سنت سے ثابت نہیں۔"], r: ["Sahih al-Bukhari 1162"] },
+  { t: "عام غلط فہمیاں", p: ["• خواب سے شریعت کا کوئی حکم ثابت نہیں ہوتا؛ دین قرآن و سنت سے ہے۔", "• ہر خواب کی تعبیر نہیں ہوتی؛ بہت سے خواب صرف نفس کی باتیں ہوتے ہیں۔", "• خواب کی بنیاد پر کسی رشتہ دار پر جادو کا الزام نہ لگائیں۔", "• جو «بابا» آپ کا خواب بتائے بغیر جان لینے یا یقینی تعبیر کا دعویٰ کرے، اس سے بچیں۔"], r: ["Sahih Muslim 2263"] },
+];
+const LETTERS ="ا ب پ ت ٹ ث ج چ ح خ د ڈ ذ ر ڑ ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ہ ی".split(" ");
+const toUrduDigits = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
+const S = { tab: "home", cat: null, sym: null, q: "", letter: null, favs: new Set(),
+  form: { name: "", gender: "", age: "", status: "", time: "", feel: "", text: "", ok: false }, badAck: false, sent: false };
+try { const f = JSON.parse(localStorage.getItem("kfavs")); if (Array.isArray(f)) S.favs = new Set(f); } catch (e) {}
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function toast(m) { const t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => t.hidden = true, 1700); }
+const norm = s => normAr(s.toLowerCase());
+const symMatch = (s, q) => !q || norm(s.ur + " " + s.ar + " " + s.ro).includes(norm(q.trim()));
+const symRow = s => s.full
+  ? `<div class="row" data-sym="${s.id}" role="button" tabindex="0"><div class="w"><span class="arname">${esc(s.ar)}</span><small>${esc(s.ro)} · عربی متن</small></div></div>`
+  : `<div class="row" data-sym="${s.id}" role="button" tabindex="0"><div class="w"><b>${esc(s.ur)}</b><small>${esc(s.ro)}</small></div><span class="arw">${esc(s.ar)}</span></div>`;
+const MAXROWS = 120;
+const rowsWithCount = list => `<p class="count">${toUrduDigits(list.length)} نتائج${list.length > MAXROWS ? ` · پہلے ${toUrduDigits(MAXROWS)} دکھائے گئے، تلاش مزید واضح کریں` : ""}</p>` + list.slice(0, MAXROWS).map(symRow).join("");
+
+const WHATSAPP = "923132020392", WHATSAPP_SHOWN = "+92 313 2020392", SITE = "https://darsenizami.net";
+function header(title, back, sub) {
+  $("top").innerHTML = (back ? `<button class="ib" data-back aria-label="واپس">${I.back}</button>` : I.moon) +
+    `<div class="tt"><h1>${title}</h1>${sub ? `<span class="sub">${sub}</span>` : ""}</div>`;
+}
+function message() {
+  const f = S.form;
+  return `السلام علیکم، خواب کی تعبیر درکار ہے\nنام: ${f.name || "—"}\nجنس: ${f.gender || "—"} | عمر: ${f.age || "—"} | حالت: ${f.status || "—"}\nوقت: ${f.time || "—"} | کیفیت: ${f.feel || "—"}\nخواب:\n${f.text}\n(خوابوں کی تعبیر ایپ سے بھیجا گیا)`;
+}
+const seg = (key, opts) => `<div class="seg" role="group">${opts.map(o => `<button type="button" data-seg="${key}" data-val="${o}" aria-pressed="${S.form[key] === o}">${o}</button>`).join("")}</div>`;
+
+function render() {
+  const tabs = [["home", "ہوم", I.home], ["cats", "اقسام", I.grid], ["send", "خواب بھیجیں", I.wa, "mid"], ["favs", "پسندیدہ", I.heart], ["more", "خواب کا علم", I.book]];
+  $("nav").innerHTML = tabs.map(([id, l, ic, cls]) => `<button class="${cls || ""}" data-tab="${id}" ${S.tab === id && !S.sym ? 'aria-current="page"' : ""}>${ic}${l}</button>`).join("");
+  const scr = $("screen");
+
+  if (S.sym) {
+    const s = SYM.find(x => x.id === S.sym), fav = S.favs.has(s.id);
+    header(esc(s.ur), true);
+    $("top").insertAdjacentHTML("beforeend", `<button class="ib" data-fav="${s.id}" aria-label="پسندیدہ">${fav ? I.heartF : I.heart}</button><button class="ib" data-share aria-label="شیئر">${I.share}</button>`);
+    scr.innerHTML = `<div class="sym">${s.full ? `<div class="big arabic" style="font-size:32px">${esc(s.ar)}</div>` : `<div class="big">${esc(s.ur)}</div><div class="arabic">${esc(s.ar)}</div>`}<small>${esc(s.ro)}</small></div>
+      ${s.books.map(b => `<div class="book"><h3>${esc(b.b)}</h3>
+        ${b.real ? "" : b.t ? '<span class="sample">اردو ترجمہ (خلاصہ) · عالم کی نظرِ ثانی باقی</span>' : '<span class="sample">اردو ترجمہ ابھی باقی ہے · نیچے مکمل عربی متن</span>'}
+        ${b.t ? `<p>${esc(b.t)}</p>` : ""}
+        ${b.orig ? `<div class="orig"><span class="h">اصل عربی متن (مکمل، بغیر کسی کمی کے)</span><p>${esc(b.orig)}</p></div>` : ""}
+        <span class="ref">${esc(b.ref)}</span></div>`).join("")}
+      <div class="alert">تعبیر ایک رائے ہے، غیب کا علم نہیں۔ اپنے خواب کی ذاتی تعبیر کے لیے نیچے بٹن دبائیں۔</div>
+      <button class="cta" data-tab="send"><span class="wa">${I.wa}</span><span><b>اپنا خواب بھیجیں</b><span>واٹس ایپ پر ذاتی تعبیر</span></span></button>`;
+    scr.scrollTop = 0; return;
+  }
+
+  if (S.tab === "home") {
+    header("خوابوں کی تعبیر", false, "قرآن، سنت اور کلاسیکی کتب کی روشنی میں");
+    const res = S.q.trim() ? SYM.filter(s => symMatch(s, S.q)) : null;
+    const hadFocus = document.activeElement && document.activeElement.id === "q";
+    scr.innerHTML = `<label class="search">${I.search}<input id="q" placeholder="خواب میں کیا دیکھا؟ سانپ، saanp، snake…" value="${esc(S.q)}" aria-label="تلاش"></label>
+      ${res ? (res.length ? rowsWithCount(res) : `<p class="h">کوئی نتیجہ نہیں ملا۔ عربی لفظ سے تلاش کریں (مثلاً حية)، یا اپنا خواب واٹس ایپ پر بھیج کر پوچھیں۔</p>`) : `
+      <button class="cta" data-tab="send"><span class="wa">${I.wa}</span><span><b>اپنا خواب بھیجیں</b><span>تفصیل لکھیں، واٹس ایپ پر ذاتی تعبیر حاصل کریں</span></span></button>
+      <div><p class="h">عام خواب</p><div class="quick">${["saanp", "daant-girna", "pani", "sooraj", "barish", "namaz", "doodh", "billi"].map(id => SYM.find(s => s.id === id)).filter(Boolean).map(s => `<button class="qchip" data-sym="${s.id}">${esc(s.ur)}</button>`).join("")}</div></div>
+      <div class="hadith"><p class="h" style="margin:0">آج کی حدیث</p><p>اچھا خواب اللہ کی طرف سے ہے اور برا خواب شیطان کی طرف سے۔ جب کوئی پسندیدہ خواب دیکھے تو صرف اسی کو بتائے جس سے محبت رکھتا ہو۔</p><span class="ref">Sahih Muslim 2261</span></div>
+      <p class="h">اقسام</p>
+      <div class="grid">${CATS.slice(0, 9).map((c, i) => `<button class="cat" data-cat="${i}"><i>${c[1]}</i><span>${c[0]}</span></button>`).join("")}</div>
+      <button class="btn2" data-tab="cats">تمام ${toUrduDigits(CATS.length)} اقسام دیکھیں</button>
+      <p class="h">مشہور علامات</p>${SYM.slice(0, 5).map(symRow).join("")}`}`;
+    if (hadFocus) { const q = $("q"); q.focus(); q.setSelectionRange(q.value.length, q.value.length); }
+  } else if (S.tab === "cats") {
+    if (S.cat !== null) {
+      header(CATS[S.cat][0], true);
+      const list = SYM.filter(s => s.cat === S.cat);
+      scr.innerHTML = list.length ? list.map(symRow).join("") : `<p class="h">اس قسم کی علامات ترجمے کے بعد شامل ہوں گی۔</p>`;
+    } else {
+      header("اقسام");
+      const list = S.letter ? SYM.filter(s => s.letter === S.letter) : [];
+      scr.innerHTML = `<p class="h">حروفِ تہجی سے تلاش</p>
+        <div class="letters">${LETTERS.map(l => `<button data-letter="${l}" aria-pressed="${S.letter === l}">${l}</button>`).join("")}</div>
+        ${S.letter ? (list.length ? rowsWithCount(list) : `<p class="h">«${S.letter}» سے کوئی علامت نہیں۔</p>`) : `<p class="count">مکمل کتاب: ${toUrduDigits(SYM.length)} علامات · ${toUrduDigits(TRANSLATED)} کا اردو ترجمہ ہو چکا</p>`}
+        <p class="h">موضوع کے لحاظ سے</p>
+        <div class="grid">${CATS.map((c, i) => `<button class="cat" data-cat="${i}"><i>${c[1]}</i><span>${c[0]}</span></button>`).join("")}</div>`;
+    }
+  } else if (S.tab === "send") {
+    header("خواب بھیجیں");
+    const f = S.form, valid = f.text.trim().length >= 20 && f.ok && f.gender && f.feel;
+    if (S.sent) {
+      scr.innerHTML = `<p class="h">آپ کا پیغام تیار ہے۔ نیچے بٹن دبائیں، واٹس ایپ کھلے گا اور یہ پیغام بھیج دیں:</p>
+        <div class="msg">${esc(message())}</div>
+        <a class="send" href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message())}" target="_blank" rel="noopener">${I.wa.replace("<svg", '<svg width="22" height="22"')} واٹس ایپ پر بھیجیں</a>
+        <p class="count" style="text-align:center">واٹس ایپ نمبر: <span dir="ltr">${WHATSAPP_SHOWN}</span></p>
+        <div class="prose"><p><b>ہدیہ:</b> تعبیر کا ہدیہ واٹس ایپ پر طے کیا جائے گا۔</p><p>عموماً ۲۴ سے ۴۸ گھنٹے میں جواب</p></div>
+        <button class="btn2" data-reset>نیا خواب لکھیں</button>`;
+      return;
+    }
+    if (f.feel === "ڈراؤنا" && !S.badAck) {
+      scr.innerHTML = `<div class="alert"><b>برا یا ڈراؤنا خواب؟</b> نبی کریم ﷺ نے فرمایا کہ برا خواب شیطان کی طرف سے ہے، اسے کسی کو نہ بتائیں، تو وہ نقصان نہیں دے گا۔ <span class="ref">Sahih Muslim 2261</span></div>
+        <ol class="steps"><li>بائیں طرف تین بار ہلکا سا تھتکاریں</li><li>تین بار «أعوذ بالله من الشيطان الرجيم» پڑھیں</li><li>کروٹ بدل لیں</li><li>چاہیں تو اٹھ کر نماز پڑھیں</li></ol>
+        <span class="ref">Sahih Muslim 2262–2263</span>
+        <button class="btn2" data-badno>ٹھیک ہے، نہیں بھیجتا</button>
+        <button class="btn2" data-badyes>پھر بھی بھیجیں</button>`;
+      return;
+    }
+    scr.innerHTML = `<p class="h">تفصیل لکھیں، بٹن دبائیں، واٹس ایپ کھل جائے گا۔ ایپ آپ کا ڈیٹا محفوظ نہیں کرتی۔</p>
+      <form id="form" novalidate>
+        <label class="f">نام (اختیاری)<input id="f-name" value="${esc(f.name)}" autocomplete="off"></label>
+        <div class="f">جنس ${seg("gender", ["مرد", "عورت"])}</div>
+        <div class="f">عمر ${seg("age", ["18 سے کم", "18–30", "31–50", "50+"])}</div>
+        <div class="f">حالت ${seg("status", ["شادی شدہ", "غیر شادی شدہ"])}</div>
+        <div class="f">خواب کب دیکھا ${seg("time", ["رات کا پہلا حصہ", "فجر کے قریب", "دن میں"])}</div>
+        <div class="f">خواب کیسا لگا ${seg("feel", ["اچھا", "عام", "ڈراؤنا"])}</div>
+        <label class="f">خواب کی تفصیل<textarea id="f-text" maxlength="1500" placeholder="جو کچھ دیکھا تفصیل سے لکھیں…">${esc(f.text)}</textarea>
+          <span class="ref" style="color:var(--muted)">${f.text.trim().length} / 1500 (کم از کم 20)</span></label>
+        <label class="check"><input type="checkbox" id="f-ok" ${f.ok ? "checked" : ""}>میں تصدیق کرتا/کرتی ہوں کہ یہ خواب میں نے واقعی دیکھا ہے۔ (جھوٹا خواب بیان کرنے پر وعید: صحیح بخاری ۷۰۴۲)</label>
+        <button class="send" type="submit" ${valid ? "" : "disabled"}>${I.wa.replace("<svg", '<svg width="22" height="22"')} واٹس ایپ پر بھیجیں</button>
+      </form>
+      <p class="h" style="text-align:center">ہدیہ واٹس ایپ پر طے ہو گا · ایپ میں کوئی ادائیگی نہیں</p>`;
+  } else if (S.tab === "favs") {
+    header("پسندیدہ");
+    const list = SYM.filter(s => S.favs.has(s.id));
+    scr.innerHTML = list.length ? list.map(symRow).join("") : `<p class="h" style="text-align:center;padding:30px 0">کسی علامت پر دل کا نشان دبائیں، وہ یہاں محفوظ ہو جائے گی۔</p>`;
+  } else {
+    header("خواب کا علم");
+    scr.innerHTML = `<p class="h">قرآن و حدیث کی روشنی میں خواب کے بارے میں سب کچھ</p>
+      ${TOPICS.map((x, i) => `<details class="topic"${i === 0 ? " open" : ""}><summary><span class="n">${toUrduDigits(i + 1)}</span>${x.t}</summary>
+        <div class="topic-body">${x.a ? `<p class="ayah">${x.a}</p>` : ""}${x.p.map(p => `<p>${p}</p>`).join("")}
+        <div class="refs">${x.r.map(r => `<span class="ref">${r}</span>`).join("")}</div></div></details>`).join("")}
+      <section class="about" aria-label="ہمارے بارے میں">
+        <span class="h">ہمارے بارے میں</span>
+        <div class="about-head"><span class="mono">ط</span><div><b>ایس ایم طلحہ</b><span>اسلامی اسکالر · SM Talha</span></div></div>
+        <p>اپنے خواب کی ذاتی تعبیر کے لیے خواب واٹس ایپ پر بھیجیں۔</p>
+        <div class="about-links">
+          <a class="send" href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">${I.wa.replace("<svg", '<svg width="20" height="20"')} <span dir="ltr">${WHATSAPP_SHOWN}</span></a>
+          <a class="btn2 linkbtn" href="${SITE}" target="_blank" rel="noopener"><span dir="ltr">darsenizami.net</span></a>
+        </div>
+      </section>
+      <div class="prose" style="display:flex;flex-direction:column;gap:12px">
+      <h2 style="margin:0;font-size:18px;color:var(--gold);line-height:2">ماخذ کتب</h2>
+      <p>تعطیر الانام فی تعبیر المنام — عبدالغنی النابلسی</p>
+      <p>الاشارات فی علم العبارات — خلیل بن شاہین الظاہری</p>
+      <p>منتخب الکلام فی تفسیر الاحلام — منسوب بہ محمد بن سیرین (نسبت پر علماء کا اختلاف ہے)</p>
+      <h2 style="margin:0;font-size:18px;color:var(--gold);line-height:2">ضروری وضاحت</h2>
+      <p>خواب کی تعبیر ایک رائے ہے، غیب کا علم نہیں۔ کسی بھی خواب کی بنیاد پر اہم فیصلے نہ کریں۔ ایپ آپ کا کوئی ڈیٹا جمع نہیں کرتی۔</p></div>`;
+  }
+}
+
+document.addEventListener("click", ev => {
+  const t = ev.target.closest("button, [data-sym]"); if (!t) return;
+  const d = t.dataset;
+  if (d.tab) { S.tab = d.tab; S.sym = null; S.cat = null; S.q = ""; return render(); }
+  if (d.sym) { S.sym = d.sym; return render(); }
+  if (d.cat !== undefined) { S.tab = "cats"; S.cat = +d.cat; return render(); }
+  if (d.letter) { S.letter = S.letter === d.letter ? null : d.letter; return render(); }
+  if (t.hasAttribute("data-back")) { if (S.sym) S.sym = null; else S.cat = null; return render(); }
+  if (d.fav) { S.favs.has(d.fav) ? S.favs.delete(d.fav) : S.favs.add(d.fav); try { localStorage.setItem("kfavs", JSON.stringify([...S.favs])); } catch (e) {} toast(S.favs.has(d.fav) ? "پسندیدہ میں شامل" : "پسندیدہ سے نکال دیا"); return render(); }
+  if (t.hasAttribute("data-share")) return toast("ایپ میں اینڈرائیڈ کا شیئر مینو کھلے گا");
+  if (d.seg) { S.form[d.seg] = S.form[d.seg] === d.val ? "" : d.val; if (d.seg === "feel") S.badAck = false; return render(); }
+  if (t.hasAttribute("data-badno")) { S.form.feel = ""; S.tab = "home"; toast("اللہ آپ کو ہر شر سے محفوظ رکھے"); return render(); }
+  if (t.hasAttribute("data-badyes")) { S.badAck = true; return render(); }
+  if (t.hasAttribute("data-reset")) { S.sent = false; S.badAck = false; S.form = { name: "", gender: "", age: "", status: "", time: "", feel: "", text: "", ok: false }; return render(); }
+});
+document.addEventListener("keydown", ev => { if (ev.key === "Enter" && ev.target.dataset && ev.target.dataset.sym) { S.sym = ev.target.dataset.sym; render(); } });
+document.addEventListener("submit", ev => { ev.preventDefault(); S.sent = true; render(); });
+document.addEventListener("input", ev => {
+  const id = ev.target.id;
+  if (id === "q") { S.q = ev.target.value; render(); }
+  else if (id === "f-name") S.form.name = ev.target.value;
+  else if (id === "f-text") { S.form.text = ev.target.value; refreshSend(); }
+  else if (id === "f-ok") { S.form.ok = ev.target.checked; refreshSend(); }
+});
+document.addEventListener("change", ev => { if (ev.target.id === "f-ok") { S.form.ok = ev.target.checked; refreshSend(); } });
+function refreshSend() {
+  const f = S.form, b = document.querySelector(".send"), c = document.querySelector("#f-text + .ref");
+  if (b) b.disabled = !(f.text.trim().length >= 20 && f.ok && f.gender && f.feel);
+  if (c) c.textContent = `${f.text.trim().length} / 1500 (کم از کم 20)`;
+}
+render();
+</script>
